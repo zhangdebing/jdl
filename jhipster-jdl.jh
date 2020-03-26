@@ -1,0 +1,229 @@
+entity User {
+	id Integer required max(10) /** 用户id*/
+    openId String required /** 微信openid*/
+	uname  String /** 微信名*/
+    unionId String required /** 微信名*/
+    phone String max(11) /**unionid 同步多个应用之间的会员信息*/
+    username String /** 用户名*/
+    avatar String /** 头像*/
+    sex Integer max(1) /** 1男2女*/
+    birthday LocalDate /** 生日*/
+    signature String /** 个签*/
+    cityId Integer /** 城市id*/
+    lastLloginIp Float /** 最后登录ip*/
+    createTime Instant /** 创建时间*/
+    lastLoginTime Instant /** 最后登录时间*/
+    status Integer max(1) /** 1正常2拉黑*/
+    createIp Float /** 注册ip*/
+    longitude Float /** 经度*/
+    latitude Float /** 纬度*/
+    cartNum Float /** 购物车件数*/
+    collectNum Float /** 收藏数*/
+    discountNum Float /** 优惠券数量*/
+    
+}
+entity Admin {
+	id Integer required max(10) /** 用户id*/
+    username String required /** 用户名*/
+    paswword String required/** 密码*/
+    email String /** email*/
+    roleId Integer /** 角色id*/
+    lastLloginIp Float /** 最后登录ip*/
+    createTime Instant /** 创建时间*/
+    lastLoginTime Instant /** 最后登录时间*/
+    status Integer max(1) /** 1正常2拉黑*/
+    createIp Float /** 注册ip*/
+    
+}
+entity UserAddress {
+	
+    id Integer required max(10) /** 地址id*/
+    uid Integer required max(10) /** 用户id*/
+    name String required /** 用户名*/
+    phone String required max(10) /** 手机号*/
+    longitude Float /** 经度*/
+    latitude Float /** 纬度*/
+    detailed String/** 详细地址*/
+    isDefault Integer/** 1默认地址*/
+    createTime Instant/** 创建时间*/
+    address String/** 地址*/
+	
+}
+entity GoodsCate {
+	
+    id Integer required max(10) /** id*/
+    title String required  /** 分类*/
+    createTime Instant/** 创建时间*/
+   
+	
+}
+entity UserFavorite {
+	
+    id Integer required max(10) /** 地址id*/
+    uid Integer required max(10) /** 用户id*/
+    goodsId Integer required /** 商品id*/
+    createTime Instant/** 创建时间*/
+}
+entity UserFeedback {
+	
+    id Integer required max(10) /** 地址id*/
+    uid Integer required max(10) /** 用户id*/
+    feedback String required /** 意见反馈*/
+    photo String  /** 图片*/
+    contactWay String  /** 联系方式*/
+    createTime Instant/** 创建时间*/
+    adminId Integer  max(10) /** 处理人id*/
+    updateTime Instant/** 处理时间*/
+    status Integer max(1) /** 0未解决1解决*/
+}
+entity UserInvoice {
+	
+    id Integer required max(10) /** 地址id*/
+    uid Integer required max(10) /** 用户id*/
+    invoiceTitle String required /** 发票抬头*/
+    dutyParagraph String  /** 企业税号*/
+    createTime Instant/** 创建时间*/
+
+}
+entity Order {
+	
+    id Integer required max(10) /** id*/
+    orderNumber String required /** 订单编号*/
+    uid Integer required max(10) /** 用户id*/
+    name String required /** 收货人姓名*/
+    phone String required max(10) /** 收货人手机号*/
+    freight Double /** 邮费*/
+    payMoney Double /** 支付金额*/
+    totalMoney Double /** 总价*/
+    couponMoney Double /** 优惠金额*/
+    longitude Float /** 经度*/
+    latitude Float /** 纬度*/
+    detailed String/** 详细地址*/
+    address String /** 地址*/
+    status Integer /** 0未支付1已支付2代发货3配送中4已收货5已完成6已取消7售后中*/
+    payTime Instant/** 支付时间*/
+    payType Integer  /** 支付方式1微信*/
+	couponId Integer  /** 优惠券id*/
+    cancelTime Instant/** 取消时间*/
+    expressTime Instant/** 发货时间*/
+    payExpireTime Instant/** 支付截止时间*/
+    receiveTime Instant/** 收货时间*/
+    receiveTime Instant/** 收货时间*/
+    isDelete Integer /** 是否删除*/
+    verifyCode String /** 核销码*/
+    createTime Instant/** 创建时间*/
+	
+}
+entity Coupon {
+ 	id Integer required max(10) /** id*/
+    starTime Instant /** 开始时间*/
+    endTime Instant /** 开始时间*/
+    couponName String /** 优惠券名称*/
+    sum Integer required /** 优惠券数量*/
+    receive Integer required /** 每个人能领取到的数量*/
+    receive Double required /** 每个人能领取到的数量*/
+    receive Double required /** 每个人能领取到的数量*/
+    receiveCount Integer  /** 已领取数量*/
+    money Double /** 满多少可以用*/
+    moneyOff Double /** 满减金额*/
+    couponType Integer required /** 优惠券类型  1全品 2限分类3限商品*/
+    createTime Instant/** 创建时间*/
+}
+entity ReceiveCoupon {
+ 	id Integer required max(10) /** id*/
+    uid Integer required max(10) /** 用户id*/
+    starTime Instant /** 开始时间*/
+    endTime Instant /** 开始时间*/
+    status Integer  /** 0未使用1已使用2已过期*/
+    money Double /** 满多少可以用*/
+    moneyOff Double /** 满减金额*/
+    createTime Instant/** 领取时间*/
+}
+entity GoodsDemand {
+ 	id Integer required max(10) /** id*/
+    uid Integer required max(10) /** 用户id*/
+    brand String /** 品牌*/
+    specification String /** 规格*/
+    barCode String  /** 条形码 */
+    demandCount Integer /** 月需求量*/
+    photo String /** 图片*/
+    remark String /** 备注*/
+    createTime Instant/** 领取时间*/
+}
+entity OrderGood {
+	
+    id Integer required max(10) /** id*/
+    orderNumber String required /** 订单编号*/
+    uid Integer required max(10) /** 用户id*/
+    goodsID Integer required /** 商品id*/
+    count Integer  /**  商品数量*/
+    goodsName String required /** 商品名称*/
+    goodsImage String required /** 商品ICON*/
+    productPrice Double /** 商品原价*/
+    price Double /** 商品金额*/
+    actualMoney Double /** 实际支付金额*/
+    couponMoney Double /** 优惠金额*/
+    cancelTime Instant/** 取消时间*/
+    isRefund Integer /** 是否退款*/
+    isReturn Integer /** 是否退货*/
+    createTime Instant/** 创建时间*/
+    presentCount Integer/** 赠送商品数量*/
+    goodsDetail String /** 商品详情*/
+	
+}
+entity OrderRefund {
+	
+    id Integer required max(10) /** id*/
+   
+	
+}
+relationship ManyToOne {
+	UserAddress{uid} to User{id},
+	UserFavorite{uid} to User{id},	
+    UserFeedback{uid} to User{id},
+    UserInvoice{uid} to User{id},
+    Order{uid} to User{id},
+    Order{uid} to User{id},
+    ReceiveCoupon{uid} to User{id},
+    GoodsDemand{uid} to User{id},
+        
+}
+relationship ManyToOne {
+	
+    OrderGood{orderNumber} to Order{orderNumber},
+        
+}
+relationship OneToOne {
+	
+    UserFeedback{adminId} to Admin{id},
+        
+}
+relationship ManyToOne {
+	
+    UserFeedback{adminId} to Admin{id},
+        
+}
+
+entity JobHistory {
+	startDate Instant,
+	endDate Instant,
+	language Language
+}
+
+enum Language {
+    FRENCH, ENGLISH, SPANISH
+}
+
+
+// Set pagination options
+paginate JobHistory, Employee with infinite-scroll
+paginate Job with pagination
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Employee, Job
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
